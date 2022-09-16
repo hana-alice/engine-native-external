@@ -220,6 +220,16 @@ set(tbb_libs_name tbb)
 
 list(APPEND CC_EXTERNAL_PRIVATE_DEFINITIONS __TBB_LIB_NAME=tbb)
 
+############################# TBB #############################
+
+add_library(dawn_webgpu SHARED IMPORTED GLOBAL)
+set_target_properties(dawn_webgpu PROPERTIES
+  # IMPORTED_IMPLIB ${CMAKE_CURRENT_LIST_DIR}/libs/tbb.lib
+  INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_LIST_DIR}/include/dawn/include
+)
+
+####
+
 if(USE_PHYSICS_PHYSX)
   set(PhysXSDK PhysX PhysXCommon PhysXFoundation PhysXExtensions PhysXCooking PhysXCharacterKinematic PhysXVehicle PhysXPvdSDK)
   foreach(PX IN LISTS PhysXSDK)
@@ -262,6 +272,7 @@ list(APPEND CC_EXTERNAL_LIBS
     ${glslang_libs_name}
     ${tbb_libs_name}
     ${PhysXSDK}
+    dawn_webgpu
 )
 
 set(ZLIB zlib)
