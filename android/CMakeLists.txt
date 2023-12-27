@@ -57,6 +57,15 @@ target_include_directories(android_platform PUBLIC
   ${CMAKE_ANDROID_NDK}/sources/android/native_app_glue
 )
 
+add_library(libopenxr_loader SHARED IMPORTED GLOBAL)
+set_target_properties(libopenxr_loader PROPERTIES
+    IMPORTED_LOCATION ${platform_spec_path}/libopenxr_loader.so
+)
+
+list(APPEND CC_EXTERNAL_LIBS
+    libopenxr_loader
+)
+
 ## Settings from  ${CMAKE_ANDROID_NDK}/sources/android/native_app_glue/Android.mk
 # set_property(TARGET android_platform APPEND_STRING PROPERTY LINK_FLAGS "-u ANativeActivity_onCreate")
 # target_link_libraries(android_platform PUBLIC
