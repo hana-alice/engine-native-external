@@ -57,9 +57,15 @@ target_include_directories(android_platform PUBLIC
   ${CMAKE_ANDROID_NDK}/sources/android/native_app_glue
 )
 
+if(OP_XR_MONADO)
+  set(loader_path ${platform_spec_path}/xrloader/khronos/libopenxr_loader.so)
+elseif(OP_XR_ROKID)
+  set(loader_path ${platform_spec_path}/xrloader/rokid/libopenxr_loader.so)
+endif()
+
 add_library(libopenxr_loader SHARED IMPORTED GLOBAL)
 set_target_properties(libopenxr_loader PROPERTIES
-    IMPORTED_LOCATION ${platform_spec_path}/libopenxr_loader.so
+    IMPORTED_LOCATION ${loader_path}
 )
 
 list(APPEND CC_EXTERNAL_LIBS
